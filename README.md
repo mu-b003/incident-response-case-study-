@@ -9,73 +9,64 @@
 
 This repository documents a complete **Incident Response Case Study** performed in a controlled VMware laboratory.
 
-The objective of this project was to simulate an SSH brute-force attack against an Ubuntu server, investigate the incident from a defender's perspective, collect forensic evidence, analyze authentication logs, identify Indicators of Compromise (IOCs), reconstruct the attack timeline, and produce a professional incident report.
-
-The project follows the workflow commonly used by Security Operations Center (SOC) analysts during security investigations.
+The purpose of this project was to investigate a simulated **SSH brute-force attack** against an Ubuntu Linux server. The investigation focused on detecting malicious authentication attempts, collecting forensic evidence, analyzing Linux authentication logs, identifying Indicators of Compromise (IOCs), reconstructing the attack timeline, and documenting the incident following Security Operations Center (SOC) practices.
 
 ---
 
 # Objectives
 
-* Simulate a real SSH brute-force attack
-* Investigate authentication logs
+* Simulate an SSH brute-force attack
+* Investigate Linux authentication logs
 * Detect malicious login attempts
 * Identify attacker activities
 * Collect digital evidence
 * Build an attack timeline
-* Document the incident
+* Produce an incident response report
 * Recommend security improvements
 
 ---
 
 # Lab Environment
 
-| Component      | Details            |
-| -------------- | ------------------ |
-| Virtualization | VMware Workstation |
-| Attacker       | Kali Linux         |
-| Target         | Ubuntu 26.04 LTS   |
-| Service        | OpenSSH            |
-| Web Server     | Apache2            |
-| Network        | Host-Only          |
+| Component        | Details            |
+| ---------------- | ------------------ |
+| Virtualization   | VMware Workstation |
+| Attacker Machine | Kali Linux         |
+| Target Machine   | Ubuntu 26.04 LTS   |
+| Target Service   | OpenSSH            |
+| SSH Port         | 22                 |
+| Network          | VMware Host-Only   |
 
 ---
 
 # Attack Scenario
 
-The attacker first scanned the target machine using **Nmap** to identify open services.
+The attacker began by scanning the target system using **Nmap** to identify accessible network services. The scan revealed that the SSH service was available for remote access.
 
-After discovering the SSH service, a password list was created and **Hydra** was used to perform a brute-force attack against the user account **Omar**.
+A password list was then created and **Hydra** was used to perform a brute-force attack against the SSH service targeting the user account **Omar**.
 
-After multiple failed attempts, Hydra successfully authenticated using a weak password.
+After several failed login attempts, the correct password was discovered and the attacker successfully authenticated through SSH.
 
-The attacker then connected through SSH and performed several enumeration activities including:
+Once connected, the attacker performed basic post-compromise enumeration, including identifying the current user, viewing system information, checking group memberships, reviewing command history, listing local files, and examining user accounts.
 
-* User identification
-* System information gathering
-* User enumeration
-* Permission checking
-* File creation
-* Access testing
+The attacker also attempted to access privileged resources such as **/root** and **/etc/shadow**, but both attempts failed due to insufficient permissions.
 
-The attacker attempted to access protected resources but failed because administrative privileges were not available.
-
-Finally, the defender investigated the authentication logs to reconstruct the entire attack.
+The defender later analyzed the authentication logs to reconstruct the entire attack and collect forensic evidence.
 
 ---
 
 # Investigation Summary
 
-The investigation confirmed the following:
+The investigation confirmed:
 
-* SSH Brute Force Attack
-* Five failed login attempts
+* SSH brute-force attack
+* Five failed authentication attempts
 * Two successful SSH logins
-* Single attacker IP address
+* One attacker IP address
 * Compromised account: Omar
 * No privilege escalation
-* No root access
-* No access to sensitive system files
+* No unauthorized root access
+* Successful evidence collection
 
 ---
 
@@ -94,30 +85,31 @@ The investigation confirmed the following:
 
 # Attack Timeline
 
-| Phase                | Description                 |
-| -------------------- | --------------------------- |
-| Initial Access       | Nmap Scan                   |
-| Enumeration          | Open Services Identified    |
-| Credential Attack    | Hydra Brute Force           |
-| Authentication       | Successful SSH Login        |
-| Post Exploitation    | User Enumeration            |
-| Privilege Escalation | Failed                      |
-| Evidence Collection  | Authentication Log Analysis |
-| Documentation        | Incident Report             |
+| Phase | Activity                      |
+| ----- | ----------------------------- |
+| 1     | Nmap reconnaissance           |
+| 2     | SSH service discovery         |
+| 3     | Password list preparation     |
+| 4     | Hydra brute-force attack      |
+| 5     | Successful SSH authentication |
+| 6     | User enumeration              |
+| 7     | System information gathering  |
+| 8     | Failed privilege escalation   |
+| 9     | Evidence collection           |
+| 10    | Log analysis and reporting    |
 
 ---
 
 # Evidence Collected
 
-The investigation analyzed:
+The investigation included analysis of:
 
-* Authentication logs
-* SSH daemon logs
-* User login records
-* Session history
-* User activity
+* Authentication logs (`auth.log`)
+* System logs (`syslog`)
+* SSH authentication records
+* User login sessions
 * Command history
-* System information
+* User account information
 * Incident evidence log
 
 ---
@@ -129,7 +121,7 @@ The investigation analyzed:
 | Active Scanning              | T1595     |
 | Brute Force                  | T1110     |
 | Valid Accounts               | T1078     |
-| SSH                          | T1021.004 |
+| Remote Services: SSH         | T1021.004 |
 | Account Discovery            | T1087     |
 | System Information Discovery | T1082     |
 | File and Directory Discovery | T1083     |
@@ -142,9 +134,8 @@ The investigation analyzed:
 * Ubuntu Linux
 * Kali Linux
 * OpenSSH
-* Apache2
-* Hydra
 * Nmap
+* Hydra
 * grep
 * awk
 * sort
@@ -159,34 +150,18 @@ The investigation analyzed:
 # Repository Structure
 
 ```text
-incident-response-case-study
+incident-response-case-study/
 │
 ├── README.md
 ├── LICENSE
 ├── DISCLAIMER.md
 │
-├── commands
-│   ├── attacker-commands.md
-│   ├── defender-commands.md
-│   └── command-explanations.md
-│
-├── reports
-│   ├── executive-summary.md
-│   ├── incident-report.md
-│   ├── findings.md
-│   └── recommendations.md
-│
-├── evidence
-│   ├── incident_evidence.log
-│   ├── auth-log-analysis.md
-│   ├── timeline.md
-│   └── indicators-of-compromise.md
-│
-├── screenshots
-│
-├── logs
-│
-└── docs
+├── commands/
+├── reports/
+├── evidence/
+├── screenshots/
+├── logs/
+└── docs/
 ```
 
 ---
@@ -194,9 +169,8 @@ incident-response-case-study
 # Skills Demonstrated
 
 * Incident Response
+* Security Operations Center (SOC)
 * Linux Security
-* Blue Team Operations
-* SOC Investigation
 * Authentication Log Analysis
 * SSH Investigation
 * Threat Hunting
@@ -212,11 +186,11 @@ incident-response-case-study
 
 # Key Findings
 
-* Five failed SSH login attempts were detected.
-* Two successful SSH logins occurred after password guessing.
+* Five failed SSH login attempts were identified.
+* Two successful SSH logins were recorded.
 * All malicious activity originated from a single IP address.
 * The attacker successfully accessed a standard user account.
-* Attempts to access privileged resources were denied.
+* Attempts to escalate privileges were unsuccessful.
 * Authentication logs provided sufficient evidence to reconstruct the complete attack.
 
 ---
@@ -227,29 +201,28 @@ incident-response-case-study
 * Disable SSH password authentication.
 * Use SSH public key authentication.
 * Enable Multi-Factor Authentication (MFA).
-* Deploy Fail2Ban.
-* Restrict SSH access using firewall rules.
-* Enable continuous log monitoring.
-* Integrate logs with a SIEM platform.
-* Review authentication logs regularly.
+* Deploy Fail2Ban to block brute-force attacks.
+* Restrict SSH access to trusted hosts.
+* Continuously monitor authentication logs.
+* Integrate Linux logs into a SIEM platform.
+* Review login activity regularly.
 
 ---
 
 # Learning Outcomes
 
-This project provided practical experience in:
+Through this project, I gained practical experience in:
 
-* Detecting SSH brute-force attacks
-* Investigating Linux authentication logs
-* Identifying Indicators of Compromise
-* Collecting forensic evidence
-* Creating attack timelines
+* Investigating SSH brute-force attacks
+* Analyzing Linux authentication logs
+* Identifying Indicators of Compromise (IOCs)
+* Collecting digital forensic evidence
+* Reconstructing attack timelines
 * Writing professional incident response reports
-* Applying defensive security techniques in a SOC environment
+* Applying SOC investigation techniques in a controlled environment
 
 ---
 
-## Disclaimer
+# Disclaimer
 
-This project was conducted in a controlled laboratory environment for educational and defensive cybersecurity purposes only. All attack simulations were performed on systems owned by the author within an isolated virtual network.
-
+This project was conducted in an isolated virtual laboratory for educational and defensive cybersecurity purposes only. All activities were performed on systems owned by the author within a controlled environment. No unauthorized systems or networks were targeted.
