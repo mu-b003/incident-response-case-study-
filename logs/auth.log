@@ -1,1 +1,10 @@
 
+2026-07-11T19:43:10.055901+05:30 it-team-VMware-Virtual-Platform sshd-session[5916]: Failed password for Omar from 192.168.81.129 port 58264 ssh2
+2026-07-11T19:43:10.184043+05:30 it-team-VMware-Virtual-Platform sshd-session[5917]: Failed password for Omar from 192.168.81.129 port 58262 ssh2
+2026-07-11T19:43:10.235168+05:30 it-team-VMware-Virtual-Platform sshd-session[5922]: Failed password for Omar from 192.168.81.129 port 58298 ssh2
+2026-07-11T19:43:10.650029+05:30 it-team-VMware-Virtual-Platform sshd-session[5919]: Failed password for Omar from 192.168.81.129 port 58266 ssh2
+2026-07-11T19:43:10.728107+05:30 it-team-VMware-Virtual-Platform sshd-session[5915]: Failed password for Omar from 192.168.81.129 port 58260 ssh2
+2026-07-11T19:43:08.460545+05:30 it-team-VMware-Virtual-Platform sshd-session[5920]: Accepted password for Omar from 192.168.81.129 port 58296 ssh2
+2026-07-11T19:45:39.646063+05:30 it-team-VMware-Virtual-Platform sshd-session[6426]: Accepted password for Omar from 192.168.81.129 port 48334 ssh2
+
+
